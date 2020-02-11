@@ -179,6 +179,3 @@ grid on;
 figure(4)
 plot(log_stick(1, :), 'r');
 grid on;
-
-
-
