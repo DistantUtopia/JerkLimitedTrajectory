@@ -7,8 +7,7 @@ function [ T1, T2, T3, delt_p_acc, p, v, a, j ] = updateDurationsMinimizeTotalTi
     T2 = computeT2_1(T1, T3, state_a, delta_v, jerk_max_T1);
     
     delt_p_acc = 0;
-    local_time = 0;
-    [p, v, a, j] = updateTrajAcc( T1 + T2 + T3, 1.0, local_time, T1, T2, T3, state_a, state_v, state_p, direction, max_jerk );
+    [p, v, a, j] = updateTrajAcc( T1 + T2 + T3, T1, T2, T3, state_a, state_v, state_p, direction, max_jerk );
     delt_p_acc = p - state_p;
 end
 

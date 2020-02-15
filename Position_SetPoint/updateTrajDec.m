@@ -1,7 +1,5 @@
-function [ p, v, a, j ] = updateTrajDec( dt, time_stretch, local_time, T5, T6, T7, a0, v0, p0, direction, max_jerk )
-    time_stretch = 1.0;
-    local_time = local_time + dt * time_stretch;
-    t_remain = local_time;
+function [ p, v, a, j ] = updateTrajDec( timestamp, T5, T6, T7, a0, v0, p0, direction, max_jerk )
+    t_remain = timestamp;
     
     t5 = min(t_remain, T5);
     [p, v, a, j] = evaluatePoly(max_jerk, a0, v0, p0, t5, direction );

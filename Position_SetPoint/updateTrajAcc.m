@@ -1,7 +1,5 @@
-function [ p, v, a, j ] = updateTrajAcc( dt, time_stretch, local_time, T1, T2, T3, a0, v0, p0, direction, max_jerk )
-    time_stretch = 1.0;
-    local_time = local_time + dt * time_stretch;
-    t_remain = local_time;
+function [ p, v, a, j ] = updateTrajAcc( timestamp, T1, T2, T3, a0, v0, p0, direction, max_jerk )
+    t_remain = timestamp;
     
     t1 = min(t_remain, T1);
     [p, v, a, j] = evaluatePoly(max_jerk, a0, v0, p0, t1, direction );

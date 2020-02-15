@@ -1,7 +1,5 @@
-function [ p, v, a, j ] = updateTrajCruise( dt, time_stretch, local_time, T4, a0, v0, p0, direction, max_jerk )
-    time_stretch = 1.0;
-    local_time = local_time + dt * time_stretch;
-    t_remain = local_time;
+function [ p, v, a, j ] = updateTrajCruise( timestamp, T4, a0, v0, p0, direction, max_jerk )
+    t_remain = timestamp;
     
     t4 = min(t_remain, T4);
     [p, v, a, j] = evaluatePoly( max_jerk, a0, v0, p0, t4, direction );
