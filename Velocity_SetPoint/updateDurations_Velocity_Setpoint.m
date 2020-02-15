@@ -1,13 +1,11 @@
-function [ T1, T2, T3, local_time, direction ] = updateDurations_Velocity_Setpoint( vel_sp, state_a, state_v, max_jerk, max_accel, max_velocity )
+function [ T1, T2, T3, direction ] = updateDurations_Velocity_Setpoint( vel_sp, state_a, state_v, max_jerk, max_accel, max_velocity )
     if vel_sp > max_velocity
         vel_sp = max_velocity;
     end
     if vel_sp < - max_velocity
         vel_sp = - max_velocity;
     end
-    
-    local_time = 0.0;
-    
+     
     direction = computeDirection(vel_sp, state_a, state_v, max_jerk);
     
     if direction ~= 0
