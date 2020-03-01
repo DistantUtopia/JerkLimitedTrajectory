@@ -38,11 +38,11 @@ state(1).v0 = -6;
 state(1).a0 = 5;
 state(1).j0 = 0.0;
 state(1).p = 0;
-state(1).v = 0;
-state(1).a = 0;
+state(1).v = -6;
+state(1).a = 5;
 state(1).j = 0;
 state(1).p_sp = 0.0;
-state(1).v_sp = 2.0;
+state(1).v_sp = 0.0;
 state(1).a_sp = 0.0;
 state(1).v_max = 5.0;
 state(1).a_max = 5.0;
@@ -109,22 +109,24 @@ dt = 0.0025;
 n_index = 1;
 
 for i = 1 : 3
-    [state(i).T1, state(i).T2, state(i).T3, state(i).direction ] = updateDurations_Velocity_Setpoint( state(i).v_sp, state(i).a0, state(i).v0, state(i).j_max, state(i).a_max, state(i).v_max);
+    [state(i).T1, state(i).T2, state(i).T3, state(i).direction ] = updateDurations_Velocity_Setpoint( state(i).v_sp, state(i).a, state(i).v, state(i).j_max, state(i).a_max, state(i).v_max);
 end
 [state, longest_time] = timeSynchronization(state, 3);
 n_steps = ceil(longest_time / dt);
 
 for i = 1 : n_steps
     for k = 1 : 3  
-        state(k).timestamp = state(k).timestamp + dt;
-        [state(k).p, state(k).v, state(k).a, state(k).j] = updateTraj( state(k).timestamp, state(k).T1, state(k).T2, state(k).T3, state(k).a0, state(k).v0, state(k).p0, state(k).direction, state(k).j_max );
+        state(k).timestamp = 0;
+        [state(k).p, state(k).v, state(k).a, state(k).j, state(k).timestamp] = updateTraj( dt, state(k).timestamp, state(k).T1, state(k).T2, state(k).T3, state(k).a, state(k).v, state(k).p, state(k).direction, state(k).j_max );
         state(k).log_p(n_index) = state(k).p;
         state(k).log_v(n_index) = state(k).v;
         state(k).log_a(n_index) = state(k).a;
         state(k).log_j(n_index) = state(k).j;
         state(k).log_t(n_index) = n_index * dt;
         state(k).log_v_sp(n_index) = state(k).v_sp;
+        [state(k).T1, state(k).T2, state(k).T3, state(k).direction ] = updateDurations_Velocity_Setpoint( state(k).v_sp, state(k).a, state(k).v, state(k).j_max, state(k).a_max, state(k).v_max);
     end
+    [state, longest_time] = timeSynchronization(state, 3);
     n_index = n_index + 1;
 end
 

@@ -14,7 +14,7 @@ function [state, longest_time] = timeSynchronization( state, n_traj )
     if desired_time > 1.192093e-007
         for i = 1 : n_traj
             if i ~= longest_traj_index
-                [state(i).T1, state(i).T2, state(i).T3] = updateDurationsGivenTotalTime(desired_time, state(i).direction, state(i).j_max, state(i).a_max, state(i).v_sp, state(i).a0, state(i).v0);
+                [state(i).T1, state(i).T2, state(i).T3] = updateDurationsGivenTotalTime(desired_time, state(i).direction, state(i).j_max, state(i).a_max, state(i).v_sp, state(i).a, state(i).v);
             end
         end
     end

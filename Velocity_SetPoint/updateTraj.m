@@ -1,6 +1,7 @@
-function [ p, v, a, j ] = updateTraj(  time_stamp, T1, T2, T3, a0, v0, p0, direction, max_jerk )
+function [ p, v, a, j, time ] = updateTraj(  dt, time_stamp, T1, T2, T3, a0, v0, p0, direction, max_jerk )
+    time_stamp = time_stamp + dt;    
     t_remain = time_stamp;
-    
+    time = time_stamp;
     t1 = min(t_remain, T1);
     [p, v, a, j] = evaluatePoly(max_jerk, a0, v0, p0, t1, direction );
     t_remain = t_remain - t1;
